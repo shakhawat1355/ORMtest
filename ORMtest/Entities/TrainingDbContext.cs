@@ -6,9 +6,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ORMtest
+namespace ORMtest.Entities
 {
-    public class TrainingDbContext :DbContext
+    public class TrainingDbContext : DbContext
     {
         private readonly string _connectionString;
         private readonly string _migrationAssembly;
@@ -22,12 +22,12 @@ namespace ORMtest
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
-            if(!optionsBuilder.IsConfigured)
+
+            if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(_connectionString, (x) => x.MigrationsAssembly(""));
             }
-            
+
             base.OnConfiguring(optionsBuilder);
         }
 

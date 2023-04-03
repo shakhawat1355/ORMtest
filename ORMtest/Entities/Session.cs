@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ORMtest
+namespace ORMtest.Entities
 {
     public class Session
     {
+        public int Id { get; set; }
+
         public int DurationInHour { get; set; }
         public string LearningObjective { get; set; }
 
