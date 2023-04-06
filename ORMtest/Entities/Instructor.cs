@@ -10,7 +10,7 @@ namespace ORMtest.Entities
 {
     public class Instructor
     {
-        public int Id { get; set; }
+        public int InstructorID { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public Address PresentAddress { get; set; }

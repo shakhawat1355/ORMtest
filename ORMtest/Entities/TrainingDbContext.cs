@@ -33,12 +33,20 @@ namespace ORMtest.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+/*            modelBuilder.Entity<Topic>().HasKey((x) => new {x.topicID,x.});
+
+            // key of courseRegi table
+            modelBuilder.Entity<AssignedCourse>().HasKey((x) => new { x.CourseID, x.TeacherID });
+            modelBuilder.Entity<Attendance>().HasKey((x) => new { x.CourseID, x.StudentID, x.date });
+        */    
+            
             base.OnModelCreating(modelBuilder);
         }
 
 
 
         DbSet<Course> courses { get; set; }
+
 
     }
 }

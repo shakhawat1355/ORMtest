@@ -8,7 +8,7 @@ namespace ORMtest.Entities
 {
     public class Course
     {
-        public int Id { get; set; }
+        public int CourseID { get; set; }
         public string Title { get; set; }
         public Instructor Teacher { get; set; }
         public List<Topic> Topics { get; set; }

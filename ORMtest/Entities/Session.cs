@@ -8,7 +8,7 @@ namespace ORMtest.Entities
 {
     public class Session
     {
-        public int Id { get; set; }
+        public int sessionID { get; set; }
 
         public int DurationInHour { get; set; }
         public string LearningObjective { get; set; }

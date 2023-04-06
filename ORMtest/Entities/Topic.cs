@@ -10,7 +10,7 @@ namespace ORMtest.Entities
     public class Topic
     {
 
-        public int Id { get; set; }
+        public int topicID { get; set; }
 
         public string Title { get; set; }
         public string Description { get; set; }
