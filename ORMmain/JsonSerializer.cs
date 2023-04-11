@@ -36,47 +36,49 @@ namespace ORMmain
             foreach (var property in properties)
 
             {
-                Console.WriteLine(property);
-
-                //var propertyValue = property.GetValue(obj);
-
-                //
-
-                //if (propertyValue == null)
-                //{
-                //    continue;
-                //}
-
-                //if (!InitialElemenet) jsonBuilder.Append(",");
+                Console.WriteLine(property.Name + " " + property.GetValue(obj));
 
 
-                //InitialElemenet = false;
 
-                //jsonBuilder.Append("\"");
-                //jsonBuilder.Append(property.Name);
-                //jsonBuilder.Append("\":");
-
-                //if (propertyValue is IList list) ListSerializer(list, jsonBuilder);
-
-                //else if (propertyValue is string)
-                //{
-                //    jsonBuilder.Append("\"");
-                //    jsonBuilder.Append(propertyValue.ToString());
-                //    jsonBuilder.Append("\"");
-                //}
-
-                //else if (propertyValue.GetType().IsValueType)
-                //{
-                //    jsonBuilder.Append("\"");
-                //    jsonBuilder.Append(propertyValue.ToString());
-                //    jsonBuilder.Append("\"");
-                //}
+                var propertyValue = property.GetValue(obj);
 
 
-                //else
-                //{
-                //    Serializer(propertyValue, jsonBuilder);
-                //}
+
+                if (propertyValue == null)
+                {
+                    continue;
+                }
+
+                if (!InitialElemenet) jsonBuilder.Append(",");
+
+
+                InitialElemenet = false;
+
+                jsonBuilder.Append("\"");
+                jsonBuilder.Append(property.Name);
+                jsonBuilder.Append("\":");
+
+                if (propertyValue is IList list) ListSerializer(list, jsonBuilder);
+
+                else if (propertyValue is string)
+                {
+                    jsonBuilder.Append("\"");
+                    jsonBuilder.Append(propertyValue.ToString());
+                    jsonBuilder.Append("\"");
+                }
+
+                else if (propertyValue.GetType().IsValueType)
+                {
+                    jsonBuilder.Append("\"");
+                    jsonBuilder.Append(propertyValue.ToString());
+                    jsonBuilder.Append("\"");
+                }
+
+
+                else
+                {
+                    Serializer(propertyValue, jsonBuilder);
+                }
             }
 
             jsonBuilder.Append("}");
