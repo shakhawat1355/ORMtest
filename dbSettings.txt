@@ -53,3 +53,51 @@ CREATE TABLE AdmissionTest (
     CourseID INT,
     CONSTRAINT FK_AdmissionTest_Course FOREIGN KEY (CourseID) REFERENCES Course (CourseID)
 );
+
+
+
+
+
+
+
+
+SELECT 
+    c.CourseID, c.Title, c.Fees,
+    i.InstructorID, i.Name, i.Email,
+    pa.Street AS PermanentStreet, pa.City AS PermanentCity, pa.Country AS PermanentCountry,
+    pr.Street AS PresentStreet, pr.City AS PresentCity, pr.Country AS PresentCountry,
+    p.Number, p.Extension, p.CountryCode,
+    t.TopicID, t.Title AS TopicTitle, t.Description,
+    s.SessionID, s.DurationInHour, s.LearningObjective,
+    at.AdmissionTestID, at.TestFees, at.StartDateTime, at.EndDateTime
+FROM Course c
+INNER JOIN Instructor i ON c.InstructorID = i.InstructorID
+INNER JOIN Address pa ON i.PermanentAddressID = pa.AddressID
+INNER JOIN Address pr ON i.PresentAddressID = pr.AddressID
+INNER JOIN Phone p ON i.InstructorID = p.InstructorID
+INNER JOIN Topic t ON c.CourseID = t.CourseID
+INNER JOIN Session s ON t.TopicID = s.TopicID
+INNER JOIN AdmissionTest at ON c.CourseID = at.CourseID
+WHERE c.Title = 'Asp.net C#';
+
+
+
+
+
+
+
+
+
+
+
+DELETE Course, CourseSection, CourseSectionContent, CourseSectionTest, AdmissionTest, StudentCourseEnrollment
+FROM Course
+INNER JOIN CourseSection ON Course.CourseID = CourseSection.CourseID
+INNER JOIN CourseSectionContent ON CourseSection.CourseSectionID = CourseSectionContent.CourseSectionID
+INNER JOIN CourseSectionTest ON CourseSection.CourseSectionID = CourseSectionTest.CourseSectionID
+INNER JOIN AdmissionTest ON Course.CourseID = AdmissionTest.CourseID
+INNER JOIN StudentCourseEnrollment ON Course.CourseID = StudentCourseEnrollment.CourseID
+WHERE Course.CourseName = 'ASP.NET C#';
+
+
+
