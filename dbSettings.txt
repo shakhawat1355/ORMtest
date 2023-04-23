@@ -1,4 +1,3 @@
-DB settings:
 CREATE TABLE Instructor (
     InstructorID INT PRIMARY KEY,
     Name VARCHAR(255),
