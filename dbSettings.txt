@@ -1,0 +1,56 @@
+DB settings:
+CREATE TABLE Instructor (
+    InstructorID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Email VARCHAR(255),
+    PermanentAddressID INT,
+    PresentAddressID INT
+);
+
+CREATE TABLE Address (
+    AddressID INT PRIMARY KEY,
+    Street VARCHAR(255),
+    City VARCHAR(255),
+    Country VARCHAR(255)
+);
+
+CREATE TABLE Phone (
+    PhoneID INT PRIMARY KEY,
+    Number VARCHAR(255),
+    Extension VARCHAR(255),
+    CountryCode VARCHAR(255),
+    InstructorID INT,
+    CONSTRAINT FK_Phone_Instructor FOREIGN KEY (InstructorID) REFERENCES Instructor (InstructorID)
+);
+
+CREATE TABLE Course (
+    CourseID INT PRIMARY KEY,
+    Title VARCHAR(255),
+    InstructorID INT,
+    Fees DECIMAL(18,2)
+);
+
+CREATE TABLE Topic (
+    TopicID INT PRIMARY KEY,
+    Title VARCHAR(255),
+    Description TEXT,
+    CourseID INT,
+    CONSTRAINT FK_Topic_Course FOREIGN KEY (CourseID) REFERENCES Course (CourseID)
+);
+
+CREATE TABLE Session (
+    SessionID INT PRIMARY KEY,
+    DurationInHour INT,
+    LearningObjective TEXT,
+    TopicID INT,
+    CONSTRAINT FK_Session_Topic FOREIGN KEY (TopicID) REFERENCES Topic (TopicID)
+);
+
+CREATE TABLE AdmissionTest (
+    AdmissionTestID INT PRIMARY KEY,
+    TestFees DECIMAL(18,2),
+    StartDateTime DATETIME,
+    EndDateTime DATETIME,
+    CourseID INT,
+    CONSTRAINT FK_AdmissionTest_Course FOREIGN KEY (CourseID) REFERENCES Course (CourseID)
+);
