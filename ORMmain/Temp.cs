@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ORMtest.Entities;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -139,5 +141,61 @@ namespace ORMmain
 
 
 
+
+
+        public static Dictionary<string, List<Tuple<string, object>>> ExtractCourseData(object course)
+        {
+            Dictionary<string, List<Tuple<string, object>>> dict = new Dictionary<string, List<Tuple<string, object>>>();
+            ExtractObjectData(course, dict);
+            return dict;
+        }
+
+        private static void ExtractObjectData(object obj, Dictionary<string, List<Tuple<string, object>>> dict)
+        {
+            Type objType = obj.GetType();
+            PropertyInfo[] props = objType.GetProperties();
+
+            foreach (PropertyInfo prop in props)
+            {
+                object propValue = prop.GetValue(obj);
+                if (propValue == null) continue;
+
+                Type propType = propValue.GetType();
+
+                if (propType.IsClass && propType != typeof(string))
+                {
+                    ExtractObjectData(propValue, dict);
+                }
+                else if (propType.IsGenericType && propType.GetGenericTypeDefinition() == typeof(List<>))
+                {
+                    var list = (IEnumerable)propValue;
+                    foreach (var item in list)
+                    {
+                        ExtractObjectData(item, dict);
+                    }
+                }
+                else
+                {
+                    string propName = prop.Name;
+                    string className = objType.Name;
+
+                    if (!dict.ContainsKey(className))
+                    {
+                        dict[className] = new List<Tuple<string, object>>();
+                    }
+
+                    dict[className].Add(new Tuple<string, object>(propName, propValue));
+                }
+
+                
+            }
+        }
+
+
+
+
+
     }
 }
+
+

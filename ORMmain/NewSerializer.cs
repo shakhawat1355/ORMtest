@@ -10,10 +10,13 @@ namespace ORMmain
 {
     public class NewSerializer
     {
+
+       public Dictionary<string, string> store;
         public static Dictionary<string, object> Convert(object obj)
         {
             var result = new Dictionary<string, object>();
-            Serialize(obj, result);
+             
+        Serialize(obj, result);
             return result;
         }
 
@@ -22,9 +25,17 @@ namespace ORMmain
             Type objType = obj.GetType();
             PropertyInfo[] properties = objType.GetProperties();
 
+            
+
+
+
             foreach (var property in properties)
             {
                 var propertyValue = property.GetValue(obj);
+
+                
+               
+             //   Console.WriteLine(property.Name + " " + property.GetValue(obj));// Print kortesi each  values
 
                 if (propertyValue == null)
                 {
@@ -49,6 +60,8 @@ namespace ORMmain
                         {
                             var nestedDict = new Dictionary<string, object>();
                             Serialize(item, nestedDict);
+                            Console.WriteLine(property.Name + " " + property.GetValue(obj));
+
                             listResult.Add(nestedDict);
                         }
                     }
@@ -56,15 +69,33 @@ namespace ORMmain
                 }
                 else if (propertyValue is string || propertyValue.GetType().IsValueType)
                 {
+                   
                     dict[property.Name] = propertyValue;
+
+                    
+
+
+
+
                 }
                 else
                 {
                     var nestedDict = new Dictionary<string, object>();
                     Serialize(propertyValue, nestedDict);
+
+
+                    Console.WriteLine(property.Name + " " + property.GetValue(obj));
+
+
                     dict[property.Name] = nestedDict;
                 }
+
+
+                
+
             }
+
+            PrintNestedDict(dict, 0);
         }
 
 
