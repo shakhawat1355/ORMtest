@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ORMmain.entities;
+using ORMtest.Entities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +13,16 @@ namespace ORMmain
     public class NewSerializer
     {
 
-       public Dictionary<string, string> store;
+
+        public string[] listOfIds = { "topicID", "sessionID", "phoneID", "InstructorID", "CourseID", "PermanentAddress", "PresentAddress" };
+      // public  Dictionary<string, string> store { get; set; }
         public static Dictionary<string, object> Convert(object obj)
         {
             var result = new Dictionary<string, object>();
-             
-        Serialize(obj, result);
+
+            
+
+            Serialize(obj, result);
             return result;
         }
 
@@ -25,9 +31,9 @@ namespace ORMmain
             Type objType = obj.GetType();
             PropertyInfo[] properties = objType.GetProperties();
 
-            
 
 
+            var result2 = new Dictionary<string, object>();
 
             foreach (var property in properties)
             {
@@ -84,18 +90,20 @@ namespace ORMmain
                     Serialize(propertyValue, nestedDict);
 
 
-                    Console.WriteLine(property.Name + " " + property.GetValue(obj));
+                    //Console.WriteLine(property.Name + " " + property.GetValue(obj));
 
 
                     dict[property.Name] = nestedDict;
                 }
 
 
-                
+               
 
             }
+            result2[""] = "";
 
             PrintNestedDict(dict, 0);
+
         }
 
 
@@ -123,6 +131,8 @@ namespace ORMmain
                     Console.WriteLine(value);
                 }
             }
+
+            Console.WriteLine("*******************************************************");
         }
 
 
