@@ -101,3 +101,27 @@ WHERE Course.CourseName = 'ASP.NET C#';
 
 
 
+to empty all the rows in all the tables:
+
+USE assignment_4;
+GO
+EXEC sp_MSforeachtable @command1 = 'DELETE FROM ?';
+GO
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -19,9 +19,11 @@ Course c1 = new Course();
 //    Console.WriteLine(s);
 //}
 
-Dictionary<string, object> temp = new Dictionary<string, object>();
+//Dictionary<string, object> temp = new Dictionary<string, object>();
 
-temp = NewSerializer.Convert(c1);
+//temp = NewSerializer.Convert(c1);
+
+AdoNetHelper.InsertObjectRecursively(c1, "Course");
 
 //var temp2 = Temp.ExtractCourseData(c1);
 

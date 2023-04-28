@@ -209,7 +209,7 @@ namespace ORMmain
 
     public static class AdoNetHelper
     {
-        private static readonly string connectionString = "your_connection_string_here";
+        private static readonly string connectionString = "Server=DESKTOP-8VMMQPN\\SQLEXPRESS;Database=test2;Trusted_Connection=True;Encrypt=False";
 
         public static void InsertObjectRecursively(object obj, string tableName)
         {
